@@ -36,7 +36,7 @@ namespace YTSearch.NET
                 var thumbnails = ParseThumbnails(video?["thumbnail"]?["thumbnails"]);
                 var length = ParseVideoLength((string?)video?["lengthText"]?["simpleText"]);
                 var author = (string?)video?["ownerText"]?["runs"]?[0]?["text"];
-                var views = int.Parse(((string?)video?["shortViewCountText"]?["simpleText"])?.Replace("K views", "000")?.Replace("M views", "000000"));
+                var views = int.Parse(((string?)video?["viewCountText"]?["simpleText"])?.Replace(",", "")?.Replace("views", ""));
                 var published = (string?)video?["publishedTimeText"]?["simpleText"];
 
                 searchResults.Add(new YouTubeVideo(title, videoId, thumbnails, length, author, views, published));
