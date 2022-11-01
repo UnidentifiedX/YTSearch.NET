@@ -14,11 +14,11 @@ namespace YTSearch.NET
 
         } 
 
-        public async Task<YouTubeSearchResult> SearchYouTube(string query)
+        public async Task<YouTubeSearchResult> SearchYoutube(string query)
         {
             var searchResults = new List<YouTubeVideo>();
 
-            var url = $"https://youtube.com/results?search_query={HttpUtility.UrlEncode(query)}";
+            var url = $"https://www.youtube.com/results?search_query={HttpUtility.UrlEncode(query)}";
             var client = new HttpClient();
 
             var result = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, url));

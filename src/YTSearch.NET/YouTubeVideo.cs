@@ -19,7 +19,7 @@ namespace YTSearch.NET
         public string VideoId { get; }
         public string Url { get
             {
-                return $"https://youtube.com/watch?v={VideoId}";
+                return $"https://www.youtube.com/watch?v={VideoId}";
             }
         }
         public Thumbnail[] Thumbnails { get; }

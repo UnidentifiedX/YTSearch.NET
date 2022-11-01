@@ -9,7 +9,7 @@ namespace YTSearch.NET.TestConsole
         {
             var client = new YouTubeSearchClient();
 
-            var a = await client.SearchYouTube("all i want for christmas is you");
+            var a = await client.SearchYoutube("all i want for christmas is you");
 
             Debugger.Break();
         }
