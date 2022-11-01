@@ -16,6 +16,8 @@ namespace YTSearch.NET
 
         public async Task<YouTubeSearchResult> SearchYouTube(string query)
         {
+            var searchResults = new List<YouTubeVideo>();
+
             var url = $"https://youtube.com/results?search_query={HttpUtility.UrlEncode(query)}";
             var client = new HttpClient();
 
@@ -33,16 +35,17 @@ namespace YTSearch.NET
                 var videoId = (string?)video?["videoId"];
                 var thumbnails = ParseThumbnails(video?["thumbnail"]?["thumbnails"]);
                 var length = ParseVideoLength((string?)video?["lengthText"]?["simpleText"]);
+                var author = (string?)video?["ownerText"]?["runs"]?[0]?["text"];
+                var views = int.Parse(((string?)video?["shortViewCountText"]?["simpleText"])?.Replace("K views", "000")?.Replace("M views", "000000"));
+                var published = (string?)video?["publishedTimeText"]?["simpleText"];
 
-                Debugger.Break();
+                searchResults.Add(new YouTubeVideo(title, videoId, thumbnails, length, author, views, published));
             }
 
-            Debugger.Break();
-
-            return new YouTubeSearchResult("a", "a", new List<YouTubeVideo>());
+            return new YouTubeSearchResult(query, url, searchResults);
         }
 
-        private List<Thumbnail> ParseThumbnails(JsonNode? jsonNode)
+        private Thumbnail[] ParseThumbnails(JsonNode? jsonNode)
         {
             var thumbnails = new List<Thumbnail>();
             foreach (var thumbnail in jsonNode?.AsArray())
@@ -53,18 +56,32 @@ namespace YTSearch.NET
                 thumbnails.Add(new Thumbnail(width, height, url));
             }
 
-            return thumbnails;
+            return thumbnails.ToArray();
         }
 
-        private int ParseVideoLength(string? timespan)
+        private TimeSpan ParseVideoLength(string? timespan)
         {
             try
             {
-                return (int)TimeSpan.ParseExact(timespan, "hh\\:mm\\:ss", CultureInfo.InvariantCulture).TotalSeconds;
+                return TimeSpan.ParseExact(timespan, "hh\\:mm\\:ss", CultureInfo.InvariantCulture);
             }
             catch
             {
-                return (int)TimeSpan.ParseExact(timespan, "mm\\:ss", CultureInfo.InvariantCulture).TotalSeconds;
+                try
+                {
+                    return TimeSpan.ParseExact(timespan, "h\\:mm\\:ss", CultureInfo.InvariantCulture);
+                }
+                catch
+                {
+                    try
+                    {
+                        return TimeSpan.ParseExact(timespan, "mm\\:ss", CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        return TimeSpan.ParseExact(timespan, "m\\:ss", CultureInfo.InvariantCulture);
+                    }
+                }
             }
         }
     }

@@ -8,7 +8,7 @@ namespace YTSearch.NET.TestConsole
         {
             var client = new YouTubeSearchClient();
 
-            var a = await client.SearchYouTube("valorant ai");
+            var a = await client.SearchYouTube("astronomia");
         }
     }
 }
