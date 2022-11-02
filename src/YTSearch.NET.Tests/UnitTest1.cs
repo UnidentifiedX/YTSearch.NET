@@ -16,7 +16,7 @@ namespace YTSearch.NET.Tests
             var a = await _client.SearchYoutube("never gonna give you up");
             Assert.Multiple(() =>
             {
-                Assert.That(a.Url, Is.EqualTo("https://www.youtube.com/results?search_query=never+gonna+give+you+up"));
+                Assert.That(a.Url, Is.EqualTo("https://www.youtube.com/results?search_query=never+gonna+give+you+up&sp=EgIQAQ%253D%253D"));
                 Assert.That(a.Query, Is.EqualTo("never gonna give you up"));
             });
         }
