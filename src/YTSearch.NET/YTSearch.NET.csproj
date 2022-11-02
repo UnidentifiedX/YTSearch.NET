@@ -4,6 +4,25 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>YTSearch.NET</Title>
+    <PackageId>UnidentifiedX.YouTubeUtil.YouTubeSearch</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>UnidentifiedX</Authors>
+    <Company>UnidentifiedX</Company>
+    <Product>YTSearch.NET</Product>
+    <Description>YouTube-Search library written in C# to search for YouTube videos</Description>
+    <Copyright>MIT</Copyright>
+    <RepositoryUrl>https://github.com/UnidentifiedX/YTSearch.NET</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>youtube-search, youtube-api, youtube, yt-search</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

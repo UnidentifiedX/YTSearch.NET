@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace YTSearch.NET.TestConsole
@@ -11,7 +12,10 @@ namespace YTSearch.NET.TestConsole
 
             var a = await client.SearchYoutube("all i want for christmas is you");
 
-            Debugger.Break();
+            foreach (var result in a.Results)
+            {
+                Console.WriteLine($"{result.Title} | {result.Author} | {result.Length:mm\\:ss}");
+            }
         }
     }
 }
