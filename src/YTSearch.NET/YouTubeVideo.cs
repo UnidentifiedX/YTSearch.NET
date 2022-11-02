@@ -4,7 +4,7 @@ namespace YTSearch.NET
 {
     public class YouTubeVideo
     {
-        public YouTubeVideo(string title, string videoId, Thumbnail[] thumbnails, TimeSpan length, string author, int views, string published)
+        public YouTubeVideo(string title, string videoId, Thumbnail[] thumbnails, TimeSpan length, string author, int? views, string published)
         {
             Title = title;
             VideoId = videoId;
@@ -25,7 +25,7 @@ namespace YTSearch.NET
         public Thumbnail[] Thumbnails { get; }
         public TimeSpan Length { get; }
         public string Author { get; }
-        public int Views { get; }
+        public int? Views { get; }
         public string Published { get; }
     }
 }

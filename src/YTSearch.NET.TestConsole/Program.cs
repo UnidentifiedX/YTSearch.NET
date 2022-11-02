@@ -14,7 +14,7 @@ namespace YTSearch.NET.TestConsole
 
             foreach (var result in a.Results)
             {
-                Console.WriteLine($"{result.Title} | {result.Author} | {result.Length:mm\\:ss}");
+                Console.WriteLine($"{result.Title} | {result.Author} | {result.Length:mm\\:ss} | {result.Views} views");
             }
         }
     }
