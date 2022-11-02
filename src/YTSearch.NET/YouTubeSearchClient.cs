@@ -14,6 +14,11 @@ namespace YTSearch.NET
 
         } 
 
+        /// <summary>
+        /// Searches youtube for videos based on a given <paramref name="query"/>
+        /// </summary>
+        /// <param name="query">Query string</param>
+        /// <returns><seealso cref="YouTubeSearchResult"/></returns>
         public async Task<YouTubeSearchResult> SearchYoutube(string query)
         {
             var searchResults = new List<YouTubeVideo>();
