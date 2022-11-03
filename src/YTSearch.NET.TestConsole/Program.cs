@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace YTSearch.NET.TestConsole
@@ -10,12 +11,10 @@ namespace YTSearch.NET.TestConsole
         {
             var client = new YouTubeSearchClient();
 
-            var a = await client.SearchYoutube("all i want for christmas is you");
+            var a = (await client.SearchYoutubeAsync("megalovania")).Results.First().Url;
+            var b = await client.GetVideoMetadataAsync(new Uri(a));
 
-            foreach (var result in a.Results)
-            {
-                Console.WriteLine($"{result.Title} | {result.Author} | {result.Length:mm\\:ss} | {result.Views} views");
-            }
+            Debugger.Break();
         }
     }
 }

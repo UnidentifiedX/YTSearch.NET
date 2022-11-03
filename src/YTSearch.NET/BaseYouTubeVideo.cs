@@ -5,9 +5,10 @@ namespace YTSearch.NET
     /// <summary>
     /// Class <c>YouTubeVideo</c> shows all extracted information for a YouTube video
     /// </summary>
-    public class YouTubeVideo
+    
+    public abstract class BaseYouTubeVideo
     {
-        public YouTubeVideo(string title, string videoId, Thumbnail[] thumbnails, TimeSpan length, string author, int? views, string published)
+        public BaseYouTubeVideo(string title, string videoId, Thumbnail[] thumbnails, TimeSpan length, string author, int? views)
         {
             Title = title;
             VideoId = videoId;
@@ -15,14 +16,15 @@ namespace YTSearch.NET
             Length = length;
             Author = author;
             Views = views;
-            Published = published;
         }
         /// <value><c>Title</c> is the title of the youtube video</value>
         public string Title { get; }
         /// <value><c>VideoId</c> is the id of the youtube video</value>
         public string VideoId { get; }
         /// <value><c>Url</c> is a derived property from the video id, which links to the video itself</value>
-        public string Url { get
+        public string Url
+        {
+            get
             {
                 return $"https://www.youtube.com/watch?v={VideoId}";
             }
@@ -35,7 +37,5 @@ namespace YTSearch.NET
         public string Author { get; }
         /// <value><c>Viers</c> is the number of views on the youtube video</value>
         public int? Views { get; }
-        /// <value><c>Published</c> is the provided duration between now and the time of publishing the video, e.g. "1 year ago"</value>
-        public string Published { get; }
     }
 }

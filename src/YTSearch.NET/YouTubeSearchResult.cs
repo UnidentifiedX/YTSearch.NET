@@ -2,10 +2,11 @@
 {
     public class YouTubeSearchResult
     {
+        #region Search result
         /// <summary>
         /// Search result class
         /// </summary>
-        public YouTubeSearchResult(string query, string url, ICollection<YouTubeVideo> results)
+        public YouTubeSearchResult(string query, string url, ICollection<SearchedYouTubeVideo> results)
         {
             Query = query;
             Url = url;
@@ -17,6 +18,7 @@
         /// <value>Search url based on query string, url encoded</value>
         public string Url { get; }
         /// <value>An <see cref="ICollection{YouTubeVideo}"/> of search results</value>
-        public ICollection<YouTubeVideo> Results { get; }
+        public ICollection<SearchedYouTubeVideo> Results { get; }
+        #endregion
     }
 }
