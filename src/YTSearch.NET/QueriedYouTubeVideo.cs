@@ -21,7 +21,6 @@ namespace YTSearch.NET
             Category = category;
         }
 
-        public DateTime DatePublished { get; }
         public string[]? Keywords { get; }
         public string? Description { get; }
         public bool? IsCrawlable { get; }

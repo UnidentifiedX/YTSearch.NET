@@ -1,6 +1,6 @@
 namespace YTSearch.NET.Tests
 {
-    public class Tests
+    public partial class Tests
     {
         private YouTubeSearchClient _client;
 
