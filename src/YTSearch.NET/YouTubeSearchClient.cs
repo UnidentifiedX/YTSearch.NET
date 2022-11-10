@@ -55,11 +55,21 @@ namespace YTSearch.NET
         #endregion
 
         #region VideoMetadata
+        /// <summary>
+        /// Gets video metadata from a video id
+        /// </summary>
+        /// <param name="videoId">Video id</param>
+        /// <returns><seealso cref="YouTubeVideoQueryResult"/></returns>
         public Task<YouTubeVideoQueryResult> GetVideoMetadataAsync(string videoId)
         {
             return GetVideoMetadataAsync(new Uri($"https://www.youtube.com/watch?v={videoId}"));
         }
 
+        /// <summary>
+        /// Gets video metadata from a video uri
+        /// </summary>
+        /// <param name="uri">Video uri</param>
+        /// <returns><seealso cref="YouTubeVideoQueryResult"/></returns>
         public async Task<YouTubeVideoQueryResult> GetVideoMetadataAsync(Uri uri)
         {
             var result = await _httpClient.GetAsync(uri);

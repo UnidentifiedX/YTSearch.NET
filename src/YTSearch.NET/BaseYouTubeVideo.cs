@@ -3,7 +3,7 @@
 namespace YTSearch.NET
 {
     /// <summary>
-    /// Class <c>YouTubeVideo</c> shows all extracted information for a YouTube video
+    /// Abstract class <c>BaseYouTubeVideo</c> shows basic extracted information for a YouTube video
     /// </summary>
     
     public abstract class BaseYouTubeVideo

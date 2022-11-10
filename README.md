@@ -55,4 +55,5 @@ This projects is licensed under the [MIT License](./LICENSE.txt).
 ## TODO and planned features
 - [ ] YouTube Music search 
 - [ ] Search by playlist, author, etc.
-- [ ] Search video metadata
+- [x] Search video metadata
+- [ ] Add like count to video metadata

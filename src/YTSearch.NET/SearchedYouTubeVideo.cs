@@ -2,6 +2,9 @@
 
 namespace YTSearch.NET
 {
+    /// <summary>
+    /// Class <c>SearchedYoutubeVideo</c> inherits from <seealso cref="BaseYouTubeVideo"/> and shows extra video information extracted from video searchess
+    /// </summary>
     public class SearchedYouTubeVideo : BaseYouTubeVideo
     {
         public SearchedYouTubeVideo(string title, string videoId, Thumbnail[] thumbnails, TimeSpan length, string author, int? views, string published) 
