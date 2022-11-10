@@ -11,10 +11,26 @@ namespace YTSearch.NET.TestConsole
         {
             var client = new YouTubeSearchClient();
 
-            var a = (await client.SearchYoutubeAsync("never gonna give you up")).Results.First().Url;
-            var b = await client.GetVideoMetadataAsync(new Uri(a));
+            //var a = (await client.SearchYoutubeAsync("never gonna give you up")).Results.First().Url;
+            var result = (await client.GetVideoMetadataAsync(new Uri("https://www.youtube.com/watch?v=yXQViqx6GMY"))).Result;
 
-            Debugger.Break();
+            //Debugger.Break();
+
+            Console.WriteLine(result.Author); // MariahCareyVEVO
+            Console.WriteLine(result.Category); // Music
+            Console.WriteLine(result.IsCrawlable); // True
+            Console.WriteLine(result.IsFamilyFriendly); // True
+            Console.WriteLine(result.IsLiveContent); // False
+            Console.WriteLine(result.IsPrivate); // False
+            Console.WriteLine(result.IsRatingEnabled); // True
+            Console.WriteLine(result.IsUnlisted); // False
+            Console.WriteLine(result.Length); // 00:03:55
+            Console.WriteLine(result.PublishedDate); // 23/11/2009 12:00:00 am
+            Console.WriteLine(result.UploadedDate); // 23/11/2009 12:00:00 am
+            Console.WriteLine(result.Title); // Mariah Carey - All I Want For Christmas Is You (Official Video)
+            Console.WriteLine(result.Url); // https://www.youtube.com/watch?v=yXQViqx6GMY
+            Console.WriteLine(result.VideoId); // yXQViqx6GMY
+            Console.WriteLine(result.Views); // 731599447
         }
     }
 }
