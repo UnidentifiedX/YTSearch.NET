@@ -23,7 +23,7 @@ namespace YTSearch.NET
         /// </summary>
         /// <param name="query">Query string</param>
         /// <returns><seealso cref="YouTubeSearchResult"/></returns>
-        public async Task<YouTubeSearchResult> SearchYoutubeAsync(string query)
+        public async Task<YouTubeSearchResult> SearchYoutubeVideoAsync(string query)
         {
             var searchResults = new List<SearchedYouTubeVideo>();
 
