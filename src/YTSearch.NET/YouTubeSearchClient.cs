@@ -139,28 +139,29 @@ namespace YTSearch.NET
 
         private TimeSpan ParseVideoLength(string? timespan)
         {
-            try
-            {
-                return TimeSpan.ParseExact(timespan, "hh\\:mm\\:ss", CultureInfo.InvariantCulture);
-            }
-            catch
-            {
+            TimeSpan output = TimeSpan.Zero;
+            if (timespan != null)
                 try
                 {
-                    return TimeSpan.ParseExact(timespan, "h\\:mm\\:ss", CultureInfo.InvariantCulture);
+                    switch (timespan.Split(':').Count())
+                    {
+                        case 1:
+                            output = TimeSpan.ParseExact(timespan, "%s", CultureInfo.InvariantCulture);
+                            break;
+                        case 2:
+                            output = TimeSpan.ParseExact(timespan, @"m\:ss", CultureInfo.InvariantCulture);
+                            break;
+                        default:
+                            output = TimeSpan.ParseExact(timespan, "g", CultureInfo.InvariantCulture);
+                            break;
+                    }
                 }
                 catch
                 {
-                    try
-                    {
-                        return TimeSpan.ParseExact(timespan, "mm\\:ss", CultureInfo.InvariantCulture);
-                    }
-                    catch
-                    {
-                        return TimeSpan.ParseExact(timespan, "m\\:ss", CultureInfo.InvariantCulture);
-                    }
+                    output = TimeSpan.Zero;
                 }
-            }
+
+            return output;
         }
     }
 }
