@@ -50,7 +50,7 @@ namespace YTSearch.NET
                 searchResults.Add(new SearchedYouTubeVideo(title, videoId, thumbnails, length, author, views, published));
             }
 
-            return new YouTubeSearchResult(query, url, searchResults);
+            return new YouTubeVideoSearchResult(query, url, searchResults);
         }
         #endregion
 
@@ -139,11 +139,12 @@ namespace YTSearch.NET
 
         private TimeSpan ParseVideoLength(string? timespan)
         {
-            TimeSpan output = TimeSpan.Zero;
+            var output = TimeSpan.Zero;
             if (timespan != null)
+            {
                 try
                 {
-                    switch (timespan.Split(':').Count())
+                    switch (timespan.Split(':').Length)
                     {
                         case 1:
                             output = TimeSpan.ParseExact(timespan, "%s", CultureInfo.InvariantCulture);
@@ -160,6 +161,7 @@ namespace YTSearch.NET
                 {
                     output = TimeSpan.Zero;
                 }
+            }
 
             return output;
         }
