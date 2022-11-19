@@ -26,8 +26,9 @@ namespace YTSearch.NET
         public async Task<YouTubeVideoSearchResult> SearchYoutubeVideoAsync(string query)
         {
             var searchResults = new List<SearchedYouTubeVideo>();
+            query = HttpUtility.UrlEncode(query);
 
-            var url = $"https://www.youtube.com/results?search_query={HttpUtility.UrlEncode(query)}&sp=EgIQAQ%253D%253D";
+            var url = $"https://www.youtube.com/results?search_query={query}&sp=EgIQAQ%253D%253D";
 
             var result = await _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, url));
             var content = await result.Content.ReadAsStringAsync();
@@ -51,6 +52,36 @@ namespace YTSearch.NET
             }
 
             return new YouTubeVideoSearchResult(query, url, searchResults);
+        }
+
+        public async Task<YouTubeChannelSearchResult> SearchYouTubeChannelAsync(string query)
+        {
+            var searchResults = new List<SearchedYouTubeChannel>();
+            query = HttpUtility.UrlEncode(query);
+
+            var url = $"https://www.youtube.com/results?search_query={query}&sp=EgIQAg%253D%253D";
+
+            var result = await _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, url));
+            var content = await result.Content.ReadAsStringAsync();
+            var jsonString = Regex.Matches(content, @"var ytInitialData = (.+?);<\/script>")[0].Groups[1].Value;
+            var json = JsonNode.Parse(jsonString);
+            var channels = json?["contents"]?["twoColumnSearchResultsRenderer"]?["primaryContents"]?["sectionListRenderer"]?["contents"]?[0]?["itemSectionRenderer"]?["contents"]?.AsArray();
+
+            foreach (var c in channels)
+            {
+                var channel = c?["channelRenderer"];
+
+                var channelId = (string?)channel?["channelId"];
+                var name = (string?)channel?["title"]?["simpleText"];
+                var thumbnails = ParseThumbnails(channel?["thumbnail"]?["thumbnails"]);
+                var descriptionSnippet = channel?["descriptionSnippet"]?["runs"]?[0]?["text"];
+                int? videoCount = int.TryParse((string?)channel?["videoCountText"]?["runs"]?[0]?["text"], out int parsed) ? parsed : null;
+                int? subscribers = KMBToInt(((string?)channel?["subscriberCountText"]?["simpleText"])?.Replace("subscribers", ""));
+
+                searchResults.Add(new SearchedYouTubeChannel(channelId, name, thumbnails, descriptionSnippet, videoCount, subscribers));
+            }
+
+            return new YouTubeChannelSearchResult(query, url, searchResults);
         }
         #endregion
 
@@ -123,7 +154,7 @@ namespace YTSearch.NET
         }
         #endregion
 
-        private Thumbnail[] ParseThumbnails(JsonNode? jsonNode)
+        private static Thumbnail[] ParseThumbnails(JsonNode? jsonNode)
         {
             var thumbnails = new List<Thumbnail>();
             foreach (var thumbnail in jsonNode?.AsArray())
@@ -137,7 +168,7 @@ namespace YTSearch.NET
             return thumbnails.ToArray();
         }
 
-        private TimeSpan ParseVideoLength(string? timespan)
+        private static TimeSpan ParseVideoLength(string? timespan)
         {
             var output = TimeSpan.Zero;
             if (timespan != null)
@@ -164,6 +195,35 @@ namespace YTSearch.NET
             }
 
             return output;
+        }
+
+        private static int? KMBToInt(string? kmb)
+        {
+            if(kmb == null) return null;
+
+            try
+            {
+                if (kmb.ToLower().Contains('k'))
+                {
+                    return (int)float.Parse(kmb.ToLower().Replace("k", "")) * 1000;
+                }
+                else if (kmb.ToLower().Contains('m'))
+                {
+                    return (int)float.Parse(kmb.ToLower().Replace("m", "")) * 1000000;
+                }
+                else if (kmb.ToLower().Contains('b'))
+                {
+                    return (int)float.Parse(kmb.ToLower().Replace("b", "")) * 1000000000;
+                }
+                else
+                {
+                    return int.Parse(kmb);
+                }
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
