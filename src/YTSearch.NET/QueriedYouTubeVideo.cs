@@ -1,4 +1,5 @@
-﻿using YTSearch.NET.Models;
+﻿using System;
+using YTSearch.NET.Models;
 
 namespace YTSearch.NET
 {

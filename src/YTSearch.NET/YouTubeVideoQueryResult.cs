@@ -1,4 +1,6 @@
-﻿namespace YTSearch.NET
+﻿using System;
+
+namespace YTSearch.NET
 {
     public partial class YouTubeSearchClient
     {

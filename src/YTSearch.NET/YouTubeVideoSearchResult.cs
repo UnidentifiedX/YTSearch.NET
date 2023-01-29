@@ -1,4 +1,6 @@
-﻿namespace YTSearch.NET
+﻿using System.Collections.Generic;
+
+namespace YTSearch.NET
 {
     public class YouTubeVideoSearchResult : YouTubeSearchResult
     {

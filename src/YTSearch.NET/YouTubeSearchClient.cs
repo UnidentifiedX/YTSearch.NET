@@ -1,8 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
+using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using YTSearch.NET.Models;
 
@@ -56,6 +61,8 @@ namespace YTSearch.NET
 
         public async Task<YouTubeChannelSearchResult> SearchYouTubeChannelAsync(string query)
         {
+            throw new NotImplementedException();
+
             var searchResults = new List<SearchedYouTubeChannel>();
             query = HttpUtility.UrlEncode(query);
 
