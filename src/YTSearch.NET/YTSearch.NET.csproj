@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net6.0;net5.0</TargetFrameworks>
+	<TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <Title>YTSearch.NET</Title>
     <PackageId>YTSearch.NET</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>UnidentifiedX</Authors>
     <Company>UnidentifiedX</Company>
     <Product>YTSearch.NET</Product>

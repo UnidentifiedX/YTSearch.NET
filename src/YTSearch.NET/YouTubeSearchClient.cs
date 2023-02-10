@@ -50,7 +50,7 @@ namespace YTSearch.NET
                 var thumbnails = ParseThumbnails(video?["thumbnail"]?["thumbnails"]);
                 var length = ParseVideoLength((string?)video?["lengthText"]?["simpleText"]);
                 var author = (string?)video?["ownerText"]?["runs"]?[0]?["text"];
-                int? views = int.TryParse(((string?)video?["viewCountText"]?["simpleText"])?.Replace(",", "")?.Replace("views", ""), out int parsed) ? parsed : null;
+                int? views = int.TryParse(((string?)video?["viewCountText"]?["simpleText"])?.Replace(",", "")?.Replace("views", ""), out int parsed) ? parsed : (int?)null; // (int?) cast to target netstandard2.1
                 var published = (string?)video?["publishedTimeText"]?["simpleText"];
 
                 searchResults.Add(new SearchedYouTubeVideo(title, videoId, thumbnails, length, author, views, published));
@@ -82,7 +82,7 @@ namespace YTSearch.NET
                 var name = (string?)channel?["title"]?["simpleText"];
                 var thumbnails = ParseThumbnails(channel?["thumbnail"]?["thumbnails"]);
                 var descriptionSnippet = channel?["descriptionSnippet"]?["runs"]?[0]?["text"];
-                int? videoCount = int.TryParse((string?)channel?["videoCountText"]?["runs"]?[0]?["text"], out int parsed) ? parsed : null;
+                int? videoCount = int.TryParse((string?)channel?["videoCountText"]?["runs"]?[0]?["text"], out int parsed) ? parsed : (int?)null; // (int?) cast to target netstandard2.1
                 int? subscribers = KMBToInt(((string?)channel?["subscriberCountText"]?["simpleText"])?.Replace("subscribers", ""));
 
                 searchResults.Add(new SearchedYouTubeChannel(channelId, name, thumbnails, descriptionSnippet, videoCount, subscribers));
