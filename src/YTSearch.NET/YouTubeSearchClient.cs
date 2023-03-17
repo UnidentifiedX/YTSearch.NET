@@ -61,8 +61,6 @@ namespace YTSearch.NET
 
         public async Task<YouTubeChannelSearchResult> SearchYouTubeChannelAsync(string query)
         {
-            throw new NotImplementedException();
-
             var searchResults = new List<SearchedYouTubeChannel>();
             query = HttpUtility.UrlEncode(query);
 
@@ -82,10 +80,26 @@ namespace YTSearch.NET
                 var name = (string?)channel?["title"]?["simpleText"];
                 var thumbnails = ParseThumbnails(channel?["thumbnail"]?["thumbnails"]);
                 var descriptionSnippet = channel?["descriptionSnippet"]?["runs"]?[0]?["text"];
-                int? videoCount = int.TryParse((string?)channel?["videoCountText"]?["runs"]?[0]?["text"], out int parsed) ? parsed : (int?)null; // (int?) cast to target netstandard2.1
-                int? subscribers = KMBToInt(((string?)channel?["subscriberCountText"]?["simpleText"])?.Replace("subscribers", ""));
 
-                searchResults.Add(new SearchedYouTubeChannel(channelId, name, thumbnails, descriptionSnippet, videoCount, subscribers));
+                // YouTube does this weird thing where they send subscriber count in the view/video count text, so we have to check for them
+                int? videoCount = null;
+                int? subscriberCount;
+
+                if ((string?)channel?["videoCountText"]?["simpleText"] != null && ((string?)channel?["videoCountText"]?["simpleText"]).Contains("subscriber"))
+                {
+                    subscriberCount = KMBToInt(((string?)channel?["videoCountText"]?["simpleText"])?.Split(' ')[0]);
+                }
+                else 
+                {
+                    subscriberCount = KMBToInt(((string?)channel?["subscriberCountText"]?["simpleText"])?.Split(' ')[0]);
+                }
+
+                if ((string?)channel?["videoCountText"]?["runs"]?[0]?["text"] != null && ((string?)channel?["videoCountText"]?["runs"]?[0]?["text"]).Contains("video"))
+                {
+                    videoCount = KMBToInt(((string?)channel?["videoCountText"]?["runs"]?[0]?["text"])?.Split(' ')[0]);
+                }
+
+                searchResults.Add(new SearchedYouTubeChannel(channelId, name, thumbnails, descriptionSnippet, videoCount, subscriberCount));
             }
 
             return new YouTubeChannelSearchResult(query, url, searchResults);
@@ -212,15 +226,15 @@ namespace YTSearch.NET
             {
                 if (kmb.ToLower().Contains('k'))
                 {
-                    return (int)float.Parse(kmb.ToLower().Replace("k", "")) * 1000;
+                    return (int)(float.Parse(kmb.ToLower().Replace("k", "")) * 1000);
                 }
                 else if (kmb.ToLower().Contains('m'))
                 {
-                    return (int)float.Parse(kmb.ToLower().Replace("m", "")) * 1000000;
+                    return (int)(float.Parse(kmb.ToLower().Replace("m", "")) * 1000000);
                 }
                 else if (kmb.ToLower().Contains('b'))
                 {
-                    return (int)float.Parse(kmb.ToLower().Replace("b", "")) * 1000000000;
+                    return (int)(float.Parse(kmb.ToLower().Replace("b", "")) * 1000000000);
                 }
                 else
                 {
