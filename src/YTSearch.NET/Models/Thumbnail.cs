@@ -18,16 +18,16 @@ namespace YTSearch.NET.Models
 #else
     public class Thumbnail
     {
-        public Thumbnail(int width, int height, string url)
+        public Thumbnail(int? width, int? height, string? url)
         {
             Width = width;
             Height = height;
             Url = url;
         }
 
-        public int Width { get; }
-        public int Height { get; }
-        public string Url { get; }
+        public int? Width { get; }
+        public int? Height { get; }
+        public string? Url { get; }
     }
 #endif
 }

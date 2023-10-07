@@ -12,7 +12,7 @@ namespace YTSearch.NET.TestConsole
         {
             var client = new YouTubeSearchClient();
 
-            var a = await client.SearchYouTubeChannelAsync("baller");
+            var a = await client.SearchYouTubeChannelAsync("rick astley");
 
             Debugger.Break();
 

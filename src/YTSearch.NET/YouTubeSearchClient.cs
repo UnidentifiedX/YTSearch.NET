@@ -15,7 +15,7 @@ namespace YTSearch.NET
 {
     public partial class YouTubeSearchClient
     {
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
 
         public YouTubeSearchClient()
         {
@@ -41,7 +41,7 @@ namespace YTSearch.NET
             var json = JsonNode.Parse(jsonString);
             var videos = json?["contents"]?["twoColumnSearchResultsRenderer"]?["primaryContents"]?["sectionListRenderer"]?["contents"]?[0]?["itemSectionRenderer"]?["contents"]?.AsArray().Where(o => o?["videoRenderer"] != null);
 
-            foreach (var v in videos)
+            videos?.ToList().ForEach(v =>
             {
                 var video = v?["videoRenderer"];
 
@@ -54,7 +54,7 @@ namespace YTSearch.NET
                 var published = (string?)video?["publishedTimeText"]?["simpleText"];
 
                 searchResults.Add(new SearchedYouTubeVideo(title, videoId, thumbnails, length, author, views, published));
-            }
+            });
 
             return new YouTubeVideoSearchResult(query, url, searchResults);
         }
@@ -72,9 +72,14 @@ namespace YTSearch.NET
             var json = JsonNode.Parse(jsonString);
             var channels = json?["contents"]?["twoColumnSearchResultsRenderer"]?["primaryContents"]?["sectionListRenderer"]?["contents"]?[0]?["itemSectionRenderer"]?["contents"]?.AsArray();
 
-            foreach (var c in channels)
+            channels.ToList().ForEach(c =>
             {
                 var channel = c?["channelRenderer"];
+
+                if (channel == null) // Most likely a paid ad
+                {
+                    return;
+                }
 
                 var channelId = (string?)channel?["channelId"];
                 var name = (string?)channel?["title"]?["simpleText"];
@@ -89,7 +94,7 @@ namespace YTSearch.NET
                 {
                     subscriberCount = KMBToInt(((string?)channel?["videoCountText"]?["simpleText"])?.Split(' ')[0]);
                 }
-                else 
+                else
                 {
                     subscriberCount = KMBToInt(((string?)channel?["subscriberCountText"]?["simpleText"])?.Split(' ')[0]);
                 }
@@ -100,7 +105,7 @@ namespace YTSearch.NET
                 }
 
                 searchResults.Add(new SearchedYouTubeChannel(channelId, name, thumbnails, descriptionSnippet, videoCount, subscriberCount));
-            }
+            });
 
             return new YouTubeChannelSearchResult(query, url, searchResults);
         }
@@ -142,7 +147,7 @@ namespace YTSearch.NET
             var isCrawlable = (bool?)videoDetail?["isCrawlable"];
             var isRatingEnabled = (bool?)videoDetail?["allowRatings"];
             var isPrivate = (bool?)videoDetail?["isPrivate"];
-            var isLiveContent = (bool?)videoDetail["isLiveContent"];
+            var isLiveContent = (bool?)videoDetail?["isLiveContent"];
             var publishedDate = DateTime.ParseExact((string?)microFormatRenderer?["publishDate"], "yyyy-MM-dd", CultureInfo.InvariantCulture);
             var uploadedDate = DateTime.ParseExact((string?)microFormatRenderer?["uploadDate"], "yyyy-MM-dd", CultureInfo.InvariantCulture);
             var isFamilyFriendly = (bool?)microFormatRenderer?["isFamilySafe"];
@@ -178,13 +183,13 @@ namespace YTSearch.NET
         private static Thumbnail[] ParseThumbnails(JsonNode? jsonNode)
         {
             var thumbnails = new List<Thumbnail>();
-            foreach (var thumbnail in jsonNode?.AsArray())
+            jsonNode?.AsArray().ToList().ForEach(thumbnail =>
             {
-                var width = (int)thumbnail?["width"];
-                var height = (int)thumbnail?["height"];
-                var url = (string)thumbnail?["url"];
+                var width = (int?)thumbnail?["width"];
+                var height = (int?)thumbnail?["height"];
+                var url = (string?)thumbnail?["url"];
                 thumbnails.Add(new Thumbnail(width, height, url));
-            }
+            });
 
             return thumbnails.ToArray();
         }
