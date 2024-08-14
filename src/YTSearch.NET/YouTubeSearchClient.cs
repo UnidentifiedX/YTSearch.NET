@@ -28,15 +28,12 @@ namespace YTSearch.NET
         /// </summary>
         /// <param name="query">Query string</param>
         /// <returns><seealso cref="YouTubeSearchResult"/></returns>
-        public async Task<YouTubeVideoSearchResult> SearchYoutubeVideoAsync(string query, bool filter = true)
+        public async Task<YouTubeVideoSearchResult> SearchYoutubeVideoAsync(string query)
         {
             var searchResults = new List<SearchedYouTubeVideo>();
             query = HttpUtility.UrlEncode(query);
 
-            var url = $"https://www.youtube.com/results?search_query={query}";
-
-            if(filter)
-                url += "&sp=EgIQAQ%253D%253D";
+            var url = $"https://www.youtube.com/results?search_query={query}&sp=EgIQAQ%253D%253D";
 
             var result = await _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, url));
             var content = await result.Content.ReadAsStringAsync();
@@ -62,15 +59,12 @@ namespace YTSearch.NET
             return new YouTubeVideoSearchResult(query, url, searchResults);
         }
 
-        public async Task<YouTubeChannelSearchResult> SearchYouTubeChannelAsync(string query, bool filter = true)
+        public async Task<YouTubeChannelSearchResult> SearchYouTubeChannelAsync(string query)
         {
             var searchResults = new List<SearchedYouTubeChannel>();
             query = HttpUtility.UrlEncode(query);
 
-            var url = $"https://www.youtube.com/results?search_query={query}";
-            
-            if(filter)
-                url += "&sp=EgIQAg%253D%253D";
+            var url = $"https://www.youtube.com/results?search_query={query}&sp=EgIQAg%253D%253D";
 
             var result = await _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, url));
             var content = await result.Content.ReadAsStringAsync();
