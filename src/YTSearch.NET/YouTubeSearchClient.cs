@@ -148,8 +148,8 @@ namespace YTSearch.NET
             var isRatingEnabled = (bool?)videoDetail?["allowRatings"];
             var isPrivate = (bool?)videoDetail?["isPrivate"];
             var isLiveContent = (bool?)videoDetail?["isLiveContent"];
-            var publishedDate = DateTime.ParseExact((string?)microFormatRenderer?["publishDate"], "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            var uploadedDate = DateTime.ParseExact((string?)microFormatRenderer?["uploadDate"], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            var publishedDate = DateTime.Parse((string?)microFormatRenderer?["publishDate"]);
+            var uploadedDate = DateTime.Parse((string?)microFormatRenderer?["uploadDate"]);
             var isFamilyFriendly = (bool?)microFormatRenderer?["isFamilySafe"];
             var availableCountries = microFormatRenderer?["availableCountries"].Deserialize<string[]>();
             var isUnlisted = (bool?)microFormatRenderer?["isUnlisted"];
