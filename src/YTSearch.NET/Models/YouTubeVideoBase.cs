@@ -1,15 +1,14 @@
 ﻿using System;
-using YTSearch.NET.Models;
 
-namespace YTSearch.NET
+namespace YTSearch.NET.Models
 {
     /// <summary>
     /// Abstract class <c>BaseYouTubeVideo</c> shows basic extracted information for a YouTube video
     /// </summary>
-    
-    public abstract class BaseYouTubeVideo
+
+    public abstract class YouTubeVideoBase
     {
-        public BaseYouTubeVideo(string? title, string? videoId, Thumbnail[] thumbnails, TimeSpan length, string? author, int? views)
+        public YouTubeVideoBase(string? title, string? videoId, Thumbnail[] thumbnails, TimeSpan length, string? author, int? views)
         {
             Title = title;
             VideoId = videoId;

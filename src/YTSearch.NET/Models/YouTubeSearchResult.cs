@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YTSearch.NET
+namespace YTSearch.NET.Models
 {
     public abstract class YouTubeSearchResult
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace YTSearch.NET
+namespace YTSearch.NET.Models
 {
     public class YouTubeVideoSearchResult : YouTubeSearchResult
     {
@@ -8,8 +8,8 @@ namespace YTSearch.NET
         /// <summary>
         /// Search result class
         /// </summary>
-        public YouTubeVideoSearchResult(string query, string url, ICollection<SearchedYouTubeVideo> results) 
-            :base(query, url)
+        public YouTubeVideoSearchResult(string query, string url, ICollection<SearchedYouTubeVideo> results)
+            : base(query, url)
         {
             Results = results;
         }

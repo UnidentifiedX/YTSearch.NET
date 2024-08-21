@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
-using YTSearch.NET.Models;
 
-namespace YTSearch.NET
+namespace YTSearch.NET.Models
 {
     public class SearchedYouTubeChannel
     {
