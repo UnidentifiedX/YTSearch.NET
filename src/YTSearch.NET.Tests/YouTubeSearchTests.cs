@@ -32,7 +32,7 @@ namespace YTSearch.NET.Tests
                 Assert.That(a.Url, Is.EqualTo("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
                 Assert.That(a.Length, Is.EqualTo(TimeSpan.FromSeconds(213)));
                 Assert.That(a.Author, Is.EqualTo("Rick Astley"));
-                Assert.That(a.Published, Is.EqualTo("13 years ago"));
+                Assert.That(a.Published, Is.EqualTo("14 years ago"));
             });
         }
     }
