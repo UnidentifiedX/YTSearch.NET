@@ -4,9 +4,9 @@ using YTSearch.NET.Models;
 namespace YTSearch.NET
 {
     /// <summary>
-    /// Class <c>QueriedYouTubeVideo</c> inherits from <seealso cref="BaseYouTubeVideo"/> and shows extra video information extracted from a YouTube video
+    /// Class <c>QueriedYouTubeVideo</c> inherits from <seealso cref="YouTubeVideoBase"/> and shows extra video information extracted from a YouTube video
     /// </summary>
-    public class QueriedYouTubeVideo : BaseYouTubeVideo
+    public class QueriedYouTubeVideo : YouTubeVideoBase
     {
         public QueriedYouTubeVideo(string? title, string? videoId, Thumbnail[] thumbnails, TimeSpan length, string? author, int? views, string[]? keywords, string? description, bool? isCrawlable, bool? isRatingEnabled, bool? isPrivate, bool? isLiveContent, DateTime publishedDate, DateTime uploadedDate, bool? isFamilyFriendly, string[]? availableCountries, bool? isUnlisted, string? category) 
             : base(title, videoId, thumbnails, length, author, views)
