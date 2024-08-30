@@ -8,7 +8,7 @@ namespace YTSearch.NET
     /// </summary>
     public class QueriedYouTubeVideo : BaseYouTubeVideo
     {
-        public QueriedYouTubeVideo(string? title, string? videoId, Thumbnail[] thumbnails, TimeSpan length, string? author, int? views, string[]? keywords, string? description, bool? isCrawlable, bool? isRatingEnabled, bool? isPrivate, bool? isLiveContent, DateTime publishedDate, DateTime uploadedDate, bool? isFamilyFriendly, string[]? availableCountries, bool? isUnlisted, string? category) 
+        public QueriedYouTubeVideo(string? title, string? videoId, Thumbnail[] thumbnails, TimeSpan length, string? author, long? views, string[]? keywords, string? description, bool? isCrawlable, bool? isRatingEnabled, bool? isPrivate, bool? isLiveContent, DateTime publishedDate, DateTime uploadedDate, bool? isFamilyFriendly, string[]? availableCountries, bool? isUnlisted, string? category) 
             : base(title, videoId, thumbnails, length, author, views)
         {
             Keywords = keywords;

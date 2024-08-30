@@ -8,7 +8,7 @@ namespace YTSearch.NET
     /// </summary>
     public class SearchedYouTubeVideo : BaseYouTubeVideo
     {
-        public SearchedYouTubeVideo(string? title, string? videoId, Thumbnail[] thumbnails, TimeSpan length, string? author, int? views, string? published) 
+        public SearchedYouTubeVideo(string? title, string? videoId, Thumbnail[] thumbnails, TimeSpan length, string? author, long? views, string? published) 
             : base(title, videoId, thumbnails, length, author, views)
         {
             Published = published;
