@@ -9,7 +9,7 @@ namespace YTSearch.NET
     
     public abstract class BaseYouTubeVideo
     {
-        public BaseYouTubeVideo(string? title, string? videoId, Thumbnail[] thumbnails, TimeSpan length, string? author, int? views)
+        public BaseYouTubeVideo(string? title, string? videoId, Thumbnail[] thumbnails, TimeSpan length, string? author, long? views)
         {
             Title = title;
             VideoId = videoId;
@@ -37,6 +37,6 @@ namespace YTSearch.NET
         /// <value><c>Author</c> is the name of the youtube channel, i.e. the publisher of the video</value>
         public string? Author { get; }
         /// <value><c>Viers</c> is the number of views on the youtube video</value>
-        public int? Views { get; }
+        public long? Views { get; }
     }
 }
